@@ -63,7 +63,7 @@ Se garantiza mediante una **clave foránea única** en la tabla `domicilio_fisca
 
 Ejecutar el archivo:
 ```
-sql/01_schema.sql
+sql/tpi_empresa_full.sql
 ```
 Este script crea:
 
@@ -71,13 +71,7 @@ Este script crea:
 - Tabla `empresa`
 - Tabla `domicilio_fiscal`
 - Relación 1→1 por `empresa_id` UNIQUE en `domicilio_fiscal`
-
-### Insertar datos de prueba
-
-Ejecutar:
-```
-sql/02_data.sql
-```
+- Datos de prueba
 
 ---
 
