@@ -32,7 +32,7 @@ public class EmpresaDao implements GenericDao<Empresa> {
 
     @Override
     public Empresa leerPorId(Long id, Connection conn) throws Exception {
-        String sql = "SELECT * FROM empresa WHERE id = ? AND eliminado = 0";
+        String sql = "SELECT * FROM empresa WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -107,7 +107,7 @@ public class EmpresaDao implements GenericDao<Empresa> {
     }
 
     public Empresa leerPorCuit(String cuit, Connection conn) throws Exception {
-        String sql = "SELECT * FROM empresa WHERE cuit = ? AND eliminado = 0";
+        String sql = "SELECT * FROM empresa WHERE cuit = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cuit);
