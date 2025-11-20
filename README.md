@@ -134,20 +134,6 @@ throw new RuntimeException("Error forzado para demostrar rollback");
 
 ---
 
-## 📚 Diagrama UML
-
-Los diagramas se encuentran en el directorio:
-
-```
-uml/
-```
-
-Incluyen:
-- Diagrama de entidades  
-- Diagrama de capas  
-
----
-
 ## 👥 Integrantes del equipo
 
 TODO

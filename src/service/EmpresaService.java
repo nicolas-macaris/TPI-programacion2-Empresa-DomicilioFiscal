@@ -24,6 +24,10 @@ public class EmpresaService implements GenericService<Empresa> {
     public void insertar(Empresa empresa) throws Exception {
         validarEmpresa(empresa);
 
+        if (empresa.getCuit() != null && empresa.getCuit().startsWith("999")) {
+            throw new RuntimeException("Error forzado para demostrar rollback");
+        }
+
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
@@ -37,13 +41,14 @@ public class EmpresaService implements GenericService<Empresa> {
             }
 
             conn.commit();
+        } catch (java.sql.SQLIntegrityConstraintViolationException ex) {
+            if (conn != null) {
+                conn.rollback();
+            }
+            throw new Exception("El CUIT ingresado ya está registrado en otra empresa.");
         } catch (Exception e) {
             if (conn != null) {
-                try {
-                    conn.rollback();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                conn.rollback();
             }
             throw e;
         } finally {
@@ -67,20 +72,25 @@ public class EmpresaService implements GenericService<Empresa> {
             conn = DatabaseConnection.getConnection();
             conn.setAutoCommit(false);
 
-            // actualizar empresa
             empresaDao.actualizar(empresa, conn);
 
             DomicilioFiscal df = empresa.getDomicilioFiscal();
-            if (df != null && df.getId() != null) {
-                domicilioFiscalDao.actualizar(df, conn);
+
+            if (df != null) {
+                if (df.getId() != null) {
+                    domicilioFiscalDao.actualizar(df, conn);
+                } else {
+                    domicilioFiscalDao.crearParaEmpresa(df, empresa.getId(), conn);
+                }
             }
 
             conn.commit();
+
         } catch (Exception e) {
             if (conn != null) {
                 try {
                     conn.rollback();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
@@ -90,7 +100,7 @@ public class EmpresaService implements GenericService<Empresa> {
                 try {
                     conn.setAutoCommit(true);
                     conn.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }

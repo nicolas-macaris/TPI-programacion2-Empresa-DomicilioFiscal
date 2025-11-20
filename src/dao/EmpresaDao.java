@@ -81,11 +81,11 @@ public class EmpresaDao implements GenericDao<Empresa> {
 
     @Override
     public void actualizar(Empresa empresa, Connection conn) throws Exception {
-        String sql = "UPDATE empresa SET razon_social=?, cuit=?, actividad_principal=?, email=? "
-                + "WHERE id=?";
+        String sql = "UPDATE empresa SET razon_social = ?, cuit = ?, "
+                + "actividad_principal = ?, email = ? "
+                + "WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setString(1, empresa.getRazonSocial());
             ps.setString(2, empresa.getCuit());
             ps.setString(3, empresa.getActividadPrincipal());

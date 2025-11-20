@@ -234,8 +234,7 @@ public class AppMenu {
     private void actualizarEmpresa() {
         try {
             System.out.print("Ingrese ID de la empresa a actualizar: ");
-            String idStr = scanner.nextLine().trim();
-            Long id = Long.parseLong(idStr);
+            Long id = Long.parseLong(scanner.nextLine().trim());
 
             Empresa existente = empresaService.getById(id);
             if (existente == null) {
@@ -244,6 +243,7 @@ public class AppMenu {
             }
 
             System.out.println("Deje vacío para mantener el valor actual.");
+
             System.out.println("Razón social actual: " + existente.getRazonSocial());
             System.out.print("Nueva razón social: ");
             String razon = scanner.nextLine().trim();
@@ -274,6 +274,7 @@ public class AppMenu {
 
             System.out.print("¿Desea actualizar el domicilio fiscal? (S/N): ");
             String resp = scanner.nextLine().trim().toUpperCase();
+
             if (resp.equals("S")) {
                 DomicilioFiscal df = existente.getDomicilioFiscal();
                 if (df == null) {
