@@ -20,10 +20,19 @@ public class EmpresaService implements GenericService<Empresa> {
         this.domicilioFiscalDao = new DomicilioFiscalDao();
     }
 
+    // deja solo dígitos (sin guiones, espacios, etc.)
+    private String normalizarCuit(String cuit) {
+        if (cuit == null) return null;
+        return cuit.replaceAll("[^0-9]", "");
+    }
+
     @Override
     public void insertar(Empresa empresa) throws Exception {
+        empresa.setCuit(normalizarCuit(empresa.getCuit()));
+
         validarEmpresa(empresa);
 
+        // para mostrar rollback
         if (empresa.getCuit() != null && empresa.getCuit().startsWith("999")) {
             throw new RuntimeException("Error forzado para demostrar rollback");
         }
@@ -65,6 +74,8 @@ public class EmpresaService implements GenericService<Empresa> {
 
     @Override
     public void actualizar(Empresa empresa) throws Exception {
+        empresa.setCuit(normalizarCuit(empresa.getCuit()));
+
         validarEmpresa(empresa);
 
         Connection conn = null;
@@ -114,7 +125,7 @@ public class EmpresaService implements GenericService<Empresa> {
             conn = DatabaseConnection.getConnection();
             conn.setAutoCommit(false);
 
-            // baja logica de empresa
+            // baja lógica de empresa
             empresaDao.eliminarLogico(id, conn);
 
             domicilioFiscalDao.eliminarLogicoPorEmpresa(id, conn);
@@ -178,6 +189,8 @@ public class EmpresaService implements GenericService<Empresa> {
     }
 
     public Empresa getByCuit(String cuit) throws Exception {
+        cuit = normalizarCuit(cuit);
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             Empresa e = empresaDao.leerPorCuit(cuit, conn);
             if (e != null) {

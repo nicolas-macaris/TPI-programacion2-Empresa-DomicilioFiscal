@@ -136,7 +136,8 @@ throw new RuntimeException("Error forzado para demostrar rollback");
 
 ## 👥 Integrantes del equipo
 
-TODO
+Nicolas Macaris
+Maria Sol Couchot
 
 ---
 
