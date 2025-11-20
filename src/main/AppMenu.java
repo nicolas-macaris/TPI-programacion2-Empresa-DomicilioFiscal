@@ -241,7 +241,9 @@ public class AppMenu {
                 System.out.println("No se encontró empresa con ID " + id);
                 return;
             }
-
+            
+            System.out.println("=========================================");
+            System.out.println("=========================================");
             System.out.println("Deje vacío para mantener el valor actual.");
 
             System.out.println("Razón social actual: " + existente.getRazonSocial());

@@ -4,13 +4,14 @@ CREATE DATABASE IF NOT EXISTS tpi_empresa
 
 USE tpi_empresa;
 
+DROP TABLE IF EXISTS domicilio_fiscal;
 DROP TABLE IF EXISTS empresa;
 
 CREATE TABLE empresa (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    eliminado TINYINT(1) NOT NULL DEFAULT 0,
+    eliminado BOOLEAN NOT NULL DEFAULT FALSE,
     razon_social VARCHAR(120) NOT NULL,
-    cuit VARCHAR(13) NOT NULL,
+    cuit VARCHAR(13) NOT NULL UNIQUE,
     actividad_principal VARCHAR(80),
     email VARCHAR(120),
 
@@ -18,11 +19,9 @@ CREATE TABLE empresa (
     UNIQUE KEY uk_empresa_cuit (cuit)
 ) ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS domicilio_fiscal;
-
 CREATE TABLE domicilio_fiscal (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    eliminado TINYINT(1) NOT NULL DEFAULT 0,
+    eliminado BOOLEAN NOT NULL DEFAULT FALSE,
     calle VARCHAR(100) NOT NULL,
     numero INT,
     ciudad VARCHAR(80) NOT NULL,
@@ -33,7 +32,6 @@ CREATE TABLE domicilio_fiscal (
     empresa_id BIGINT UNSIGNED,
 
     PRIMARY KEY (id),
-    
     UNIQUE KEY uk_domiciliofis_empresaid (empresa_id),
 
     CONSTRAINT fk_domicilio_empresa
@@ -42,8 +40,6 @@ CREATE TABLE domicilio_fiscal (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) ENGINE = InnoDB;
-
-USE tpi_empresa;
 
 INSERT INTO empresa (eliminado, razon_social, cuit, actividad_principal, email)
 VALUES

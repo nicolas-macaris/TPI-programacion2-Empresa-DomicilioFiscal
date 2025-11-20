@@ -32,11 +32,6 @@ public class EmpresaService implements GenericService<Empresa> {
 
         validarEmpresa(empresa);
 
-        // para mostrar rollback
-        if (empresa.getCuit() != null && empresa.getCuit().startsWith("999")) {
-            throw new RuntimeException("Error forzado para demostrar rollback");
-        }
-
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
