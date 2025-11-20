@@ -49,7 +49,7 @@ public class EmpresaService implements GenericService<Empresa> {
             if (conn != null) {
                 conn.rollback();
             }
-            throw new Exception("El CUIT ingresado ya está registrado en otra empresa.");
+            throw new Exception("El CUIT ingresado ya está registrado en otra empresa. (rollback)");
         } catch (Exception e) {
             if (conn != null) {
                 conn.rollback();
