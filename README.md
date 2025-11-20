@@ -118,19 +118,9 @@ main.MainApp
 
 ---
 
-## ⚡ Función especial para mostrar rollback
-
-Si el CUIT ingresado comienza con **“999”**, el sistema fuerza un error:
-
-```
-throw new RuntimeException("Error forzado para demostrar rollback");
-```
-
----
-
 ## 👥 Integrantes del equipo
 
-Nicolas Macaris
+Nicolas Macaris<br>
 Maria Sol Couchot
 
 ---
