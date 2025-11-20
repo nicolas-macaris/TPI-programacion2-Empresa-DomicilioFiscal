@@ -90,7 +90,7 @@ db.url=jdbc:mysql://localhost:3306/tpi_empresa?useSSL=false&serverTimezone=UTC
 db.username=TU_USUARIO
 db.password=TU_PASSWORD
 ```
-
+- modificar lo que sea necesario (puerto, username y password)
 ---
 
 ## 🧩 Cómo ejecutar el proyecto
