@@ -127,7 +127,6 @@ Maria Sol Couchot
 
 ## 🎥 Video demostrativo
 
-🔗 Enlace al video 
-TODO
+🔗 [Enlace al video](https://youtu.be/Q0M3tra_CL4)
 
 ---
